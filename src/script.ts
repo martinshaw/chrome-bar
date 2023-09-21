@@ -1,8 +1,8 @@
-const maxResult = 5;
+const maxResult = 10;
 const maxLatestUsedShortcuts = 3000;
+
 const searchSelector = 'a,tr,button,.btn';
 type SearchSelectorElementType = HTMLAnchorElement | HTMLTableRowElement | HTMLButtonElement | HTMLIFrameElement;
-
 
 type ShortcutEntryType = {
     alias: string,
@@ -146,15 +146,15 @@ function initialize() {
 
 function showSearchBar() {
     cancelSearchBar();
-    let e = document.createElement('form');
-    e.id = 'chrome-bar__wrapper';
-    e.innerHTML =
+    let formElement = document.createElement('form');
+    formElement.id = 'chrome-bar__wrapper';
+    formElement.classList.add('chrome-bar__theme--dark')
+    formElement.innerHTML =
         '<div id="chrome-bar__search"><input id="chrome-bar__search_input" placeholder="Search" autocomplete="off" /></div>' +
         '<ul class="chrome-bar__grid" id="chrome-bar__result" ></ul>';
 
-
-    document.getElementsByTagName('body')[0].appendChild(e);
-    e.addEventListener('submit', function(event){event.preventDefault();doSearch()});
+    document.getElementsByTagName('body')[0].appendChild(formElement);
+    formElement.addEventListener('submit', function(event){event.preventDefault();doSearch()});
 
     let inputElement = document.getElementById("chrome-bar__search_input");
     if (inputElement == null) return;
@@ -208,12 +208,6 @@ function setShortcutsFromElements(anchorElements: SearchSelectorElementType[]) {
         if (title.length > 1 &&
             !(title in shortcuts)
         ) {
-            // if icon
-            if (anchorElement.offsetWidth < 1 && anchorElement.innerHTML.indexOf('svg') !== -1) {
-                title = (title + " <img src=\"https://image.flaticon.com/icons/png/512/3342/3342137.png\" style='max-width:10px;margin-top:-3px;'>");
-            }
-
-            /* set mapping to call this element later */
             shortcuts[alias] = {
                 'alias': alias,
                 'title': title,
@@ -383,9 +377,9 @@ function getResultItemsFromRegex(resultItems: ShortcutEntryType[], searchValReg:
 }
 
 function cancelSearchBar() {
-    let e = document.getElementById('chrome-bar__wrapper');
-    if (null !== e) {
-        e.remove();
+    let wrapperElement = document.getElementById('chrome-bar__wrapper');
+    if (null !== wrapperElement) {
+        wrapperElement.remove();
     }
 
     hideHelperSelectedAnchor();
