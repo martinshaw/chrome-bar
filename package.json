@@ -1,7 +1,7 @@
 {
   "name": "chrome-bar",
   "version": "1.0.0",
-  "description": "",
+  "description": "The missing super-powered command bar for the Chrome browser which enables quick keyboard navigation across the internet",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack/webpack.config.js",
