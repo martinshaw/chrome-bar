@@ -1,6 +1,6 @@
 #chrome-bar__wrapper {
   position: fixed;
-  z-index: 99999999999999;
+  z-index: 99999999999999 !important;
   width: 300px;
   top: auto;
   bottom: 30px;
