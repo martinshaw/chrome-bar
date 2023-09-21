@@ -1,7 +1,7 @@
-import { containsObject, isInteger } from "./utilities";
+import { containsObject, currentSelectedElementIsInput, isInteger } from "./utilities";
 
 // Set this to `false` when testing and/or making changes to the design
-const shouldCancelSearchBar: boolean = true as boolean;
+const shouldCancelSearchBar: boolean = false as boolean;
 
 const maxVisibleResults = 5;
 const maxLatestUsedShortcuts = 3000;
@@ -152,9 +152,7 @@ chrome.storage.sync.get(
         if (settings.displayAutomatically === true || settings.displayAutomatically === 'true') displayAutomatically = true;
         if (settings.displayAutomatically === false || settings.displayAutomatically === 'false') displayAutomatically = false;
 
-        const initiallySelectedElementIsInput = document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA';
-    
-        if (displayAutomatically === true && initiallySelectedElementIsInput === false) initialize();
+        if (displayAutomatically === true && currentSelectedElementIsInput() === false) initialize();
     }
 )
 
@@ -187,9 +185,14 @@ const showSearchBar = () => {
 
     inputElement.oninput = fillResultBar;
     setTimeout(() => { 
-        if (inputElement == null) return;
+        if (inputElement == null || currentSelectedElementIsInput()) return;
         inputElement.focus() 
     }, 300);
+    
+    setTimeout(() => { 
+        if (inputElement == null || currentSelectedElementIsInput()) return;
+        inputElement.focus() 
+    }, 1000);
 }
 
 const determineActionShortcuts: () => typeof shortcuts = () => {
@@ -401,6 +404,8 @@ const mustKeepLatestUsedShortcut = (latestUsedShortcuts: string[], index: number
 
 const getTitleFromElement = (element: HTMLElement) => {
     if (element.innerText == null) return;
+
+    console.log('element', element, element.innerText);
 
     return element.innerText.replace(/\n|\r|\'|\"/g, "").trim();
 }

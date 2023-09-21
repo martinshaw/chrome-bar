@@ -6,7 +6,6 @@
   bottom: 30px;
   right: 30px;
   border-radius: 10px;
-  border-bottom-right-radius: 0;
 }
 
 .chrome-bar__theme--light#chrome-bar__wrapper::-webkit-scrollbar-track, .chrome-bar__theme--light#chrome-bar__wrapper *::-webkit-scrollbar-track {
@@ -30,11 +29,11 @@
 }
 
 .chrome-bar__theme--light *{
-  color: rgba(51, 51, 51, 0.9);
+  color: rgba(51, 51, 51, 0.8);
 }
 
 .chrome-bar__theme--dark *{
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 #chrome-bar__search > input {
@@ -83,9 +82,8 @@
   right: 0;
   border-top: 1px gray solid;
   border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .chrome-bar__theme--light #chrome-bar__result {
@@ -93,7 +91,7 @@
 }
 
 .chrome-bar__theme--dark #chrome-bar__result {
-  border: 1px solid rgba(57, 57, 57, 1);
+  border-top: 1px solid rgba(57, 57, 57, 1);
 }
 
 #chrome-bar__result li {
@@ -137,7 +135,7 @@
 
 .chrome-bar__theme--dark #chrome-bar__result li > label:hover,
 .chrome-bar__theme--dark input[id^="chrome-bar__choice__"]:checked + label {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 1);
   background-color: rgba(255, 255, 255, 0.05);
 }
 

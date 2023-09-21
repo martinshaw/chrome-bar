@@ -29,3 +29,5 @@ export const isElementVisible = (element: HTMLElement): element is HTMLElement =
         element.contains(document.elementFromPoint(rect.left,  rect.bottom))
     );
 }
+
+export const currentSelectedElementIsInput = () => document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA';
