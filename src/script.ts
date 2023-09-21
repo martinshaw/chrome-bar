@@ -404,9 +404,6 @@ const mustKeepLatestUsedShortcut = (latestUsedShortcuts: string[], index: number
 
 const getTitleFromElement = (element: HTMLElement) => {
     if (element.innerText == null) return;
-
-    console.log('element', element, element.innerText);
-
     return element.innerText.replace(/\n|\r|\'|\"/g, "").trim();
 }
 
