@@ -4,6 +4,8 @@ module.exports = {
    mode: "production",
    entry: {
       background: path.resolve(__dirname, "..", "src", "background.ts"),
+      script: path.resolve(__dirname, "..", "src", "script.ts"),
+      options: path.resolve(__dirname, "..", "src", "options.ts"),
    },
    output: {
       path: path.join(__dirname, "../dist"),

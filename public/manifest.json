@@ -3,12 +3,22 @@
    "description": "The missing super-powered command bar for the Chrome browser which enables quick keyboard navigation across the internet",
    "version": "1.0",
    "manifest_version": 3,
-   "permissions": [
-      "activeTab",
-      "scripting"
-   ],
    "action": {},
-   "background": {
-      "service_worker": "background.js"
-   }
+   "content_scripts": [
+     {
+       "matches": ["http://*/*","https://*/*"],
+       "css": ["style.css"],
+       "js": ["script.js"],
+       "all_frames": true
+     }
+   ],
+   "permissions": [
+     "storage",
+     "activeTab"
+   ],
+   "options_ui": {
+     "page": "options.html",
+     "open_in_tab": false
+   },
+   "offline_enabled": true
 }
