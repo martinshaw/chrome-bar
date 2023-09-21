@@ -1,2 +1,5 @@
 node_modules
 dist
+
+# Do not commit nor distribute my private key file, it allows me to create new versions of the same signed package
+private.pem
