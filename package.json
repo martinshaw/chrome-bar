@@ -1,0 +1,28 @@
+{
+  "name": "chrome-bar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack/webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinshaw/chrome-bar.git"
+  },
+  "author": "Martin Shaw <developer@martinshaw.co>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinshaw/chrome-bar/issues"
+  },
+  "homepage": "https://github.com/martinshaw/chrome-bar#readme",
+  "devDependencies": {
+    "@types/chrome": "^0.0.246",
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
