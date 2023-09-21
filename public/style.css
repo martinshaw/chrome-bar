@@ -26,14 +26,41 @@
 
 #chrome-bar__search > input {
   width: calc(100% - 20px);
-  margin: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding-bottom: 3px;
   font-size: 18px;
   background-color: transparent;
   border: none;
   font-weight: 300;
   overflow: hidden;
-  outline: none;
+  outline: none !important;
+
+  /* computed */
+  box-sizing: border-box;
+  cursor: text;
+  display: inline-block;
+  font-family: "Roboto Condensed", sans-serif;
+  font-stretch: 100%;
+  font-style: normal;
+  font-variant-caps: normal;
+  font-variant-east-asian: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  letter-spacing: normal;
+  line-height: 42.8571px;
+  padding-right: 1px;
+  padding-top: 1px;
+  text-align: start;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-size-adjust: 100%;
+  text-transform: none;
+  word-spacing: 0px;
+  writing-mode: horizontal-tb;
+  -webkit-rtl-ordering: logical;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 #chrome-bar__result {
@@ -42,6 +69,9 @@
   margin: 0;
   right: 0;
   border-top: 1px gray solid;
+  border-radius: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .chrome-bar__theme--light #chrome-bar__result {
@@ -78,6 +108,11 @@
   margin-bottom: 5px;
   text-align: left;
   text-size-adjust: 100%;
+}
+
+#chrome-bar__result li label span {
+  opacity: 0.5;
+  padding: 0 5px;
 }
 
 .chrome-bar__theme--light #chrome-bar__result li > label:hover,
