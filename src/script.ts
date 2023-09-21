@@ -1,18 +1,7 @@
 import { containsObject, isInteger } from "./utilities";
 
-
-
-
 // Set this to `false` when testing and/or making changes to the design
 const shouldCancelSearchBar: boolean = true as boolean;
-
-// Will display the bar on all pages without pressing shortcut keys
-const shouldDisplayWithoutShortcut: boolean = true as boolean;
-
-
-
-
-
 
 const maxVisibleResults = 5;
 const maxLatestUsedShortcuts = 3000;
@@ -29,8 +18,8 @@ type ShortcutEntryType = {
 };
 
 const ESC_KEY = 27;
-const UP_KEY = 38;
-const DOWN_KEY = 40;
+const UP_KEY = 40;
+const DOWN_KEY = 38;
 const CMD_KEY = 91;
 
 let shortcuts: {[key: string]: ShortcutEntryType} = {};
@@ -157,9 +146,22 @@ document.onkeydown = (event) => {
     initialize();
 };
 
-if (shouldDisplayWithoutShortcut === true) {
-    initialize();
-}
+chrome.storage.sync.get(
+    (settings) => {
+        let displayAutomatically: boolean = true;
+        if (settings.displayAutomatically === true || settings.displayAutomatically === 'true') displayAutomatically = true;
+        if (settings.displayAutomatically === false || settings.displayAutomatically === 'false') displayAutomatically = false;
+
+        const initiallySelectedElementIsInput = document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA';
+    
+        if (displayAutomatically === true && initiallySelectedElementIsInput === false) initialize();
+    }
+)
+
+let theme: 'dark' | 'light' = 'dark';
+chrome.storage.sync.get((settings) => {
+    if (['dark', 'light'].includes(settings.theme)) theme = settings.theme;
+});
 
 const showSearchBar = () => {
     cancelSearchBar();
@@ -169,13 +171,16 @@ const showSearchBar = () => {
 
     let formElement = document.createElement('form');
     formElement.id = 'chrome-bar__wrapper';
-    formElement.classList.add('chrome-bar__theme--dark')
+    formElement.classList.add('chrome-bar__theme--' + theme);
     formElement.innerHTML = `
 <div id="chrome-bar__search"><input id="chrome-bar__search_input" placeholder="Type a link or command" autocomplete="off" /></div>
 <ul class="chrome-bar__grid" id="chrome-bar__result" style="${resultsMaxHeightRule}"></ul>`;
 
     document.getElementsByTagName('body')[0].appendChild(formElement);
-    formElement.addEventListener('submit', function(event){event.preventDefault();doSearch()});
+    formElement.addEventListener('submit', function(event){
+        event.preventDefault();
+        doSearch()
+    });
 
     let inputElement = document.getElementById("chrome-bar__search_input");
     if (inputElement == null) return;
