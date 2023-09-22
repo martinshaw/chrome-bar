@@ -1,4 +1,5 @@
 import keycode from "keycode";
+import { MAC_CMD_KEY, WIN_CTRL_KEY } from "./script";
 
 const displayCurrentKeyCombination = (key: number) => {
     const currentKeyLabelElement: HTMLSpanElement | null = document.querySelector('label#current-key-combination span');
@@ -17,26 +18,28 @@ const restore_options = () => {
         statusElement.textContent = 'Now press a key';
     });
 
-    chrome.storage.sync.get({
-        theme: 'dark',
-        displayAutomatically: true,
-        activateKey: '17',
-    }, function(items) {
-        const themeSelectElement: HTMLSelectElement | null = document.querySelector('select#theme');
-        if (themeSelectElement == null) return false;
-
-        themeSelectElement.value = items.theme;
-
-        const displayAutomaticallyCheckboxElement: HTMLInputElement | null = document.querySelector('input#display-automatically');
-        if (displayAutomaticallyCheckboxElement == null) return false;
-
-        displayAutomaticallyCheckboxElement.checked = items.displayAutomatically;
-
-        const activateKeyElement: HTMLInputElement | null = document.querySelector('input#activate-key');
-        if (activateKeyElement == null) return false;
-
-        activateKeyElement.value = items.activateKey;
-        displayCurrentKeyCombination(parseInt(items.activateKey));
+    chrome.runtime.getPlatformInfo(function(info) {
+        chrome.storage.sync.get({
+            theme: 'dark',
+            displayAutomatically: true,
+            activateKey: info.os === 'mac' ? MAC_CMD_KEY : WIN_CTRL_KEY,
+        }, function(items) {
+            const themeSelectElement: HTMLSelectElement | null = document.querySelector('select#theme');
+            if (themeSelectElement == null) return false;
+    
+            themeSelectElement.value = items.theme;
+    
+            const displayAutomaticallyCheckboxElement: HTMLInputElement | null = document.querySelector('input#display-automatically');
+            if (displayAutomaticallyCheckboxElement == null) return false;
+    
+            displayAutomaticallyCheckboxElement.checked = items.displayAutomatically;
+    
+            const activateKeyElement: HTMLInputElement | null = document.querySelector('input#activate-key');
+            if (activateKeyElement == null) return false;
+    
+            activateKeyElement.value = items.activateKey;
+            displayCurrentKeyCombination(parseInt(items.activateKey));
+        });
     });
 }
 

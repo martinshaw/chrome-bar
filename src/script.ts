@@ -20,10 +20,12 @@ type ShortcutEntryType = {
 
 export type ShortcutEntryListType = {[key: string]: ShortcutEntryType};
 
-const ESC_KEY = 27;
-const UP_KEY = 40;
-const DOWN_KEY = 38;
-const CMD_KEY = 91;
+export const ESC_KEY = 27;
+export const UP_KEY = 40;
+export const DOWN_KEY = 38;
+export const MAC_CMD_KEY = 91;
+export const WIN_CTRL_KEY = 17;
+export const XOS_META_KEYS = [MAC_CMD_KEY, WIN_CTRL_KEY];
 
 let shortcuts: ShortcutEntryListType = {};
 let lastKey: number | null = null;
@@ -79,10 +81,12 @@ const initialize = () => {
 }
 
 document.onkeydown = (event) => {
-    chrome.storage.sync.get({
-        activateKey: CMD_KEY
-    }, items => {
-        activateKey = parseInt(items.activateKey);
+    chrome.runtime.getPlatformInfo(function(info) {
+        chrome.storage.sync.get({
+            activateKey: info.os === 'mac' ? MAC_CMD_KEY : WIN_CTRL_KEY
+        }, items => {
+            activateKey = parseInt(items.activateKey);
+        });
     });
 
     let currentKey = event.which;
@@ -90,7 +94,6 @@ document.onkeydown = (event) => {
     /* if event is esc */
     if (currentKey === ESC_KEY) {
         if (shouldCancelSearchBar === true) cancelSearchBar();
-        
         lastKey = currentKey;
         return;
     }
@@ -140,8 +143,10 @@ document.onkeydown = (event) => {
         return;
     }
 
+    if (lastKey == null) return;
+
     // Only trigger popup if last key is shift
-    if (lastKey !== CMD_KEY || currentKey !== activateKey) {
+    if (XOS_META_KEYS.includes(lastKey) === false || currentKey !== activateKey) {
         lastKey = currentKey;
         return;
     }
