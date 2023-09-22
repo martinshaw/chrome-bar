@@ -57,5 +57,7 @@
 
   "git.autofetch": true,
   "extensions.ignoreRecommendations": false,
-  "editor.stickyScroll.enabled": true
+  "editor.stickyScroll.enabled": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true
 }

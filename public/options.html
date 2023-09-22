@@ -1,56 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head><title>Chrome Bar options</title></head>
-<body>
-
+  <head>
+    <title>Chrome Bar options</title>
+  </head>
+  <body>
     <section class="setting" id="setting__theme">
-        <h3>Theme</h3>
-        <label>
-            <select id="theme">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-            </select>
-        </label>
+      <h3>Theme</h3>
+      <label>
+        <select id="theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
     </section>
 
     <section class="setting" id="setting__display-automatically">
-        <h3>Display Automatically</h3>
-        <label>
-            <p>
-                If you check this box, the Chrome Bar will be displayed automatically when you navigate to a new page.
-            </p>
-            <input type="checkbox" id="display-automatically" />
-        </label>
+      <h3>Display Automatically</h3>
+      <label>
+        <p>
+          If you check this box, the Chrome Bar will be displayed automatically
+          when you navigate to a new page.
+        </p>
+        <input type="checkbox" id="display-automatically" />
+      </label>
     </section>
 
     <section class="setting" id="setting___shortcut">
-        <h3>Shortcut</h3>
-        <label>
-            <p>Set the shortcut to activate search (combined with the left command or control key)</p>
-            <button id="key-press">Click here to choose a key</button>
-            <input id="activate-key" style="display: none; margin-top: 10px;" disabled="disabled">
-        </label>
-    
-        <br/><br/>
-    
-        <label id="current-key-combination">
-            The current key combination for showing the Chrome Bar is <strong>left cmd/ctrl then <span></span></strong>
-        </label>
-    
-        <br/>
+      <h3>Shortcut</h3>
+      <label>
+        <p>
+          Set the shortcut to activate search (combined with the left command or
+          control key)
+        </p>
+        <button id="key-press">Click here to choose a key</button>
+        <input
+          id="activate-key"
+          style="display: none; margin-top: 10px"
+          disabled="disabled"
+        />
+      </label>
+
+      <br /><br />
+
+      <label id="current-key-combination">
+        The current key combination for showing the Chrome Bar is
+        <strong>left cmd/ctrl then <span></span></strong>
+      </label>
+
+      <br />
     </section>
 
-    <br/>
+    <br />
 
     <div id="status"></div>
 
-    <br/>
+    <br />
 
     <button id="save">Save</button>
 
-    <br/>
+    <br />
 
     <script src="options.js"></script>
-
-</body>
+  </body>
 </html>

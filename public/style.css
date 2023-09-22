@@ -8,11 +8,13 @@
   border-radius: 10px;
 }
 
-.chrome-bar__theme--light#chrome-bar__wrapper::-webkit-scrollbar-track, .chrome-bar__theme--light#chrome-bar__wrapper *::-webkit-scrollbar-track {
+.chrome-bar__theme--light#chrome-bar__wrapper::-webkit-scrollbar-track,
+.chrome-bar__theme--light#chrome-bar__wrapper *::-webkit-scrollbar-track {
   background: rgba(236, 236, 236, 0.9);
 }
 
-.chrome-bar__theme--dark#chrome-bar__wrapper::-webkit-scrollbar-track, .chrome-bar__theme--dark#chrome-bar__wrapper *::-webkit-scrollbar-track {
+.chrome-bar__theme--dark#chrome-bar__wrapper::-webkit-scrollbar-track,
+.chrome-bar__theme--dark#chrome-bar__wrapper *::-webkit-scrollbar-track {
   background: rgba(18, 18, 18, 0.8);
 }
 
@@ -28,11 +30,11 @@
   border: 1px solid rgba(57, 57, 57, 0.9);
 }
 
-.chrome-bar__theme--light *{
+.chrome-bar__theme--light * {
   color: rgba(51, 51, 51, 0.8);
 }
 
-.chrome-bar__theme--dark *{
+.chrome-bar__theme--dark * {
   color: rgba(255, 255, 255, 0.8);
 }
 
