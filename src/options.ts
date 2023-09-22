@@ -1,13 +1,23 @@
 import keycode from "keycode";
-import { MAC_CMD_KEY, WIN_CTRL_KEY } from "./script";
+import { isAMac } from "./utilities";
+import { MAC_CMD_KEY, WIN_CTRL_KEY } from "./keys";
 
 const displayCurrentKeyCombination = (key: number) => {
-  const currentKeyLabelElement: HTMLSpanElement | null = document.querySelector(
-    "label#current-key-combination span"
+  const metaKeyLabelElement: HTMLSpanElement | null = document.querySelector(
+    "label#current-key-combination span.current-key-combination--meta-key"
   );
-  if (currentKeyLabelElement == null) return false;
+  if (metaKeyLabelElement == null) return false;
 
-  currentKeyLabelElement.textContent = keycode(key);
+  metaKeyLabelElement.textContent = keycode(
+    isAMac() ? MAC_CMD_KEY : WIN_CTRL_KEY
+  );
+
+  const activeKeyLabelElement: HTMLSpanElement | null = document.querySelector(
+    "label#current-key-combination span.current-key-combination--active-key"
+  );
+  if (activeKeyLabelElement == null) return false;
+
+  activeKeyLabelElement.textContent = keycode(key);
 };
 
 // Restores select box and checkbox state using the preferences
@@ -22,36 +32,33 @@ const restore_options = () => {
     statusElement.textContent = "Now press a key";
   });
 
-  chrome.runtime.getPlatformInfo(function (info) {
-    chrome.storage.sync.get(
-      {
-        theme: "dark",
-        displayAutomatically: true,
-        activateKey: info.os === "mac" ? MAC_CMD_KEY : WIN_CTRL_KEY,
-      },
-      function (items) {
-        const themeSelectElement: HTMLSelectElement | null =
-          document.querySelector("select#theme");
-        if (themeSelectElement == null) return false;
+  chrome.storage.sync.get(
+    {
+      theme: "dark",
+      displayAutomatically: true,
+      activateKey: isAMac() ? MAC_CMD_KEY : WIN_CTRL_KEY,
+    },
+    function (items) {
+      const themeSelectElement: HTMLSelectElement | null =
+        document.querySelector("select#theme");
+      if (themeSelectElement == null) return false;
 
-        themeSelectElement.value = items.theme;
+      themeSelectElement.value = items.theme;
 
-        const displayAutomaticallyCheckboxElement: HTMLInputElement | null =
-          document.querySelector("input#display-automatically");
-        if (displayAutomaticallyCheckboxElement == null) return false;
+      const displayAutomaticallyCheckboxElement: HTMLInputElement | null =
+        document.querySelector("input#display-automatically");
+      if (displayAutomaticallyCheckboxElement == null) return false;
 
-        displayAutomaticallyCheckboxElement.checked =
-          items.displayAutomatically;
+      displayAutomaticallyCheckboxElement.checked = items.displayAutomatically;
 
-        const activateKeyElement: HTMLInputElement | null =
-          document.querySelector("input#activate-key");
-        if (activateKeyElement == null) return false;
+      const activateKeyElement: HTMLInputElement | null =
+        document.querySelector("input#activate-key");
+      if (activateKeyElement == null) return false;
 
-        activateKeyElement.value = items.activateKey;
-        displayCurrentKeyCombination(parseInt(items.activateKey));
-      }
-    );
-  });
+      activateKeyElement.value = items.activateKey;
+      displayCurrentKeyCombination(parseInt(items.activateKey));
+    }
+  );
 };
 
 // Saves options to chrome.storage

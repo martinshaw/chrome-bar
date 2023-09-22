@@ -45,3 +45,6 @@ export const isElementVisible = (
 export const currentSelectedElementIsInput = () =>
   document.activeElement?.tagName === "INPUT" ||
   document.activeElement?.tagName === "TEXTAREA";
+
+export const isAMac = () =>
+  navigator.platform.toUpperCase().indexOf("MAC") >= 0;
