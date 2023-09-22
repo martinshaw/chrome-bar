@@ -2,7 +2,7 @@ import { containsObject, currentSelectedElementIsInput, isInteger } from "./util
 import { determineActionShortcuts } from './sources/actions';
 
 // Set this to `false` when testing and/or making changes to the design
-const shouldCancelSearchBar: boolean = false as boolean;
+const shouldCancelSearchBar: boolean = true as boolean;
 
 const maxVisibleResults = 5;
 const maxLatestUsedShortcuts = 3000;
