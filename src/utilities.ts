@@ -17,6 +17,10 @@ export const isInteger = (n: any): n is number => {
   return n == +n && n == (n | 0);
 };
 
+export const isNumeric = (n: number | string): boolean => {
+  return !isNaN(Number(n.toString().trim()));
+};
+
 export const isElementVisible = (
   element: HTMLElement
 ): element is HTMLElement => {

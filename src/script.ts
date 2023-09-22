@@ -3,6 +3,7 @@ import {
   currentSelectedElementIsInput,
   isAMac,
   isInteger,
+  isNumeric,
 } from "./utilities";
 import { determineActionShortcuts } from "./sources/actions";
 import { DOWN_KEY, ESC_KEY, MAC_CMD_KEY, UP_KEY, WIN_CTRL_KEY } from "./keys";
@@ -31,7 +32,7 @@ type ShortcutEntryType = {
 export type ShortcutEntryListType = { [key: string]: ShortcutEntryType };
 
 let shortcuts: ShortcutEntryListType = {};
-let lastKey: number | null = null;
+let lastKey: number | number | "" = "";
 let activateKey: string | number | "" = "";
 let resultItems: ShortcutEntryType[] = [];
 
@@ -55,12 +56,12 @@ if (window.self === window.top) {
 }
 
 document.onmousedown = (event) => {
-  lastKey = null;
+  lastKey = "";
   if (shouldCancelSearchBar === true) cancelSearchBar();
 };
 
 document.addEventListener("visibilitychange", (event) => {
-  lastKey = null;
+  lastKey = "";
   if (shouldCancelSearchBar === true) cancelSearchBar();
 });
 
@@ -98,6 +99,15 @@ document.onkeydown = (event) => {
   );
 
   let currentKey = event.which;
+
+  console.log(
+    "activeKey",
+    activateKey,
+    "lastKey",
+    lastKey,
+    "currentKey",
+    currentKey
+  );
 
   /* if event is esc */
   if (currentKey === ESC_KEY) {
@@ -164,11 +174,13 @@ document.onkeydown = (event) => {
     return;
   }
 
-  if (lastKey == null) return;
+  if (isNumeric(lastKey) === false || lastKey === "") {
+    lastKey = currentKey;
+    return;
+  }
 
   let lastKeyWasMeta = [MAC_CMD_KEY, WIN_CTRL_KEY].includes(lastKey);
 
-  // Only trigger popup if last key is shift
   if (lastKeyWasMeta === false || currentKey !== activateKey) {
     lastKey = currentKey;
     return;
