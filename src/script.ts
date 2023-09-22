@@ -1,3 +1,5 @@
+import SimpleBar from "simplebar";
+import "simplebar/dist/simplebar.css";
 import {
   containsObject,
   currentSelectedElementIsInput,
@@ -35,6 +37,7 @@ let shortcuts: ShortcutEntryListType = {};
 let lastKey: number | number | "" = "";
 let activateKey: string | number | "" = "";
 let resultItems: ShortcutEntryType[] = [];
+let simpleBarInstance: SimpleBar | null = null;
 
 // If not in iframe
 if (window.self === window.top) {
@@ -242,12 +245,7 @@ const showSearchBar = () => {
   setTimeout(() => {
     if (inputElement == null || currentSelectedElementIsInput()) return;
     inputElement.focus();
-  }, 300);
-
-  setTimeout(() => {
-    if (inputElement == null || currentSelectedElementIsInput()) return;
-    inputElement.focus();
-  }, 1000);
+  }, 250);
 };
 
 const setShortcuts = (latestUsed: string[]) => {
@@ -398,6 +396,11 @@ export const getElementsFromFrame = (
 };
 
 const fillResultBar = () => {
+  if (simpleBarInstance != null) {
+    simpleBarInstance.unMount();
+    simpleBarInstance = null;
+  }
+
   resultItems = [];
 
   let searchResultElement: HTMLUListElement | null = document.querySelector(
@@ -460,6 +463,12 @@ const fillResultBar = () => {
       "</label>";
     searchResultElement.appendChild(option);
   }
+
+  const resultsElement: HTMLUListElement | null = document.querySelector(
+    "ul#chrome-bar__result"
+  );
+  if (resultsElement == null) return;
+  simpleBarInstance = new SimpleBar(resultsElement);
 
   showHelperSelectedAnchor();
 };
