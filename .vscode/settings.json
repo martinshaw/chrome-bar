@@ -1,0 +1,25 @@
+{
+    
+    // Project subfolder where the slides are located.
+    "slides.folder": ".slides/demo",
+    
+    // Use the Markdown Preview pane to view Markdown files.
+    "slides.previewMarkdownFiles": true,
+    
+    // VS Code settings you want to set in presentation mode.
+    "slides.vscodeSettings": {
+        "markdown.preview.fontSize": 24,
+        "window.zoomLevel": 1.2,
+        "workbench.colorTheme": "GitHub Dark High Contrast",
+        "editor.fontFamily": "Fira Code",
+        "editor.lineNumbers": "off",
+        "editor.fontLigatures": false,
+        "workbench.colorCustomizations": {
+            // "editorCursor.background": "#ffffff",
+            // "editorCursor.foreground": "#0000bb",
+            // "editor.lineHighlightBackground": "#f0f0f0",
+            // "editor.selectionBackground": "#aaeeff"
+        },
+    }
+    
+}

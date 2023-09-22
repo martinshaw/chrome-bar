@@ -207,7 +207,7 @@ const setShortcuts = (latestUsed: string[]) => {
 
     anchorElements = Array.from(new Set(anchorElements));
 
-    // remove if title is an integer
+    // Remove if title is an integer
     for(let i = anchorElements.length - 1; i >= 0; i--) {
         let title = getTitleFromElement(anchorElements[i]);
         if(isInteger(title)) {
@@ -297,7 +297,7 @@ const setLatestUsedShortcuts = (element: HTMLElement | null | undefined) => {
 
 /**
  *  Remove old records
- **/
+ */
 const mustKeepLatestUsedShortcut = (latestUsedShortcuts: string[], index: number) => {
     return latestUsedShortcuts.length < maxLatestUsedShortcuts || index > 4;
 }
