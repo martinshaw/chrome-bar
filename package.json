@@ -1,6 +1,6 @@
 {
   "name": "chrome-bar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The missing super-powered command bar for the Chrome browser which enables quick keyboard navigation across the internet",
   "main": "index.js",
   "scripts": {
