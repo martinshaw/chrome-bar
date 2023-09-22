@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "files": "src/**/*.js, src/**/*.jsx, src/**/*.ts, src/**/*.tsx, src/**/*.vue",
+      "options": {
+        "arrowParens": "always",
+        "bracketSameLine": false,
+        "bracketSpacing": true,
+        "semi": false,
+        "singleQuote": true,
+        "jsxSingleQuote": false,
+        "quoteProps": "consistent",
+        "trailingComma": "all",
+        "singleAttributePerLine": true,
+        "htmlWhitespaceSensitivity": "strict",
+        "vueIndentScriptAndStyle": true,
+        "proseWrap": "preserve",
+        "insertPragma": false,
+        "printWidth": 100,
+        "requirePragma": false,
+        "tabWidth": 4,
+        "useTabs": true,
+        "embeddedLanguageFormatting": "auto",
+        "parser": "json"
+      }
+    }
+  ]
+}
