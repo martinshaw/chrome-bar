@@ -89,8 +89,7 @@
   right: 0 !important;
   border-top: 1px gray solid !important;
   border-bottom-left-radius: 10px !important;
-  overflow-y: visible !important;
-  overflow-x: hidden !important;
+  overflow: visible !important;
 }
 
 .chrome-bar__theme--light #chrome-bar__result {
