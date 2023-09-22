@@ -122,5 +122,23 @@ export const determineActionShortcuts: () => ShortcutEntryListType = () => {
         window.open("marchive://" + urlEncoded, "_blank");
       },
     },
+    "take-screenshot": {
+      type: "action",
+      alias: "take-screenshot",
+      title: "Take Screenshot",
+      performAction: () => {
+        // take full sized screenshot in chrome extension manifest v3
+        // https://stackoverflow.com/a/67566016/2784884
+
+        chrome.tabs.captureVisibleTab(function (image) {
+          const timestamp = new Date().getTime();
+
+          const link = document.createElement("a");
+          link.download = `screenshot-${timestamp}.png`;
+          link.href = image;
+          link.click();
+        });
+      },
+    },
   };
 };
