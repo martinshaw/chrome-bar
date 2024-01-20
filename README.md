@@ -1,8 +1,11 @@
+<center>
 ![The Chrome Bar Icon](https://raw.githubusercontent.com/martinshaw/chrome-bar/master/icons/128x128.png)
-# The Chrome Bar
+<h1>The Chrome Bar from Martin Shaw</h1>
+<i>The missing super-powered command bar for quick keyboard navigation across the internet</i> 
+</center>
 
-## The missing super-powered command bar for the Chrome browser which enables quick keyboard navigation across the internet
+## I want it!
 
-### Designed in Manchester by Martin Shaw
+Add the Chrome Bar to your browser with two clicks
 
-[Add the Chrome Bar to your browser with two clicks](https://martinshaw.co/products/chrome-bar)
+https://martinshaw.co/products/chrome-bar
