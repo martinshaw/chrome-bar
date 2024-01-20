@@ -103,15 +103,6 @@ document.onkeydown = (event) => {
 
   let currentKey = event.which;
 
-  console.log(
-    "activeKey",
-    activateKey,
-    "lastKey",
-    lastKey,
-    "currentKey",
-    currentKey
-  );
-
   /* if event is esc */
   if (currentKey === ESC_KEY) {
     if (shouldCancelSearchBar === true) cancelSearchBar();

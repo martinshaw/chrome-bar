@@ -122,6 +122,21 @@ export const determineActionShortcuts: () => ShortcutEntryListType = () => {
         window.open("marchive://" + urlEncoded, "_blank");
       },
     },
+    "duplicate-tab": {
+      type: "action",
+      alias: "duplicate-tab",
+      title: "Duplicate Tab",
+      performAction: () => {
+        chrome.tabs.query(
+          { active: true, currentWindow: true },
+          function (tabs) {
+            if (tabs.length < 1) return;
+            if (tabs[0].id == null) return;
+            chrome.tabs.duplicate(tabs[0].id);
+          }
+        );
+      },
+    },
     // "take-screenshot": {
     //   type: "action",
     //   alias: "take-screenshot",
