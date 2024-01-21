@@ -6,11 +6,19 @@
 
 ## I want it!
 
-Add the Chrome Bar to your browser with two clicks
+Add the Chrome Bar to your browser in 5 easy steps (until it's in the Chrome Web Store!):
 
-https://martinshaw.co/products/chrome-bar
+1. Navigate to `chrome://extensions`
 
-Press `cmd + cmd` or `ctrl + ctrl` to open the Chrome Bar.
+2. Enable `Developer mode` in the top right
+
+3. Download the latest release from https://github.com/martinshaw/chrome-bar/releases/download/1.4.0/dist.crx
+
+4. Drag and drop the downloaded file onto the `chrome://extensions` page
+
+5. Press `cmd + cmd` or `ctrl + ctrl` to open the Chrome Bar.
+
+Enjoy a faster browsing experience!
 
 ## Why is it not in the Chrome Web Store?
 
