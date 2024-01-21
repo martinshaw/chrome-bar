@@ -28,10 +28,14 @@ type ShortcutEntryType = {
   alias: string;
   title: string | undefined;
   element?: HTMLElement;
+  actionIcon?: string;
   performAction?: Function;
+  filterLogic?: (input: string) => boolean;
 };
 
-export type ShortcutEntryListType = { [key: string]: ShortcutEntryType };
+export type ShortcutEntryListType = {
+  [key: string]: ShortcutEntryType | ((input: string) => ShortcutEntryType);
+};
 
 let shortcuts: ShortcutEntryListType = {};
 let lastKey: number | number | "" = "";
@@ -408,15 +412,23 @@ const fillResultBar = () => {
 
   resultItems = getResultItemsFromRegex(
     resultItems,
-    "^" + searchInputElementValue
+    "^" + searchInputElementValue,
+    searchInputElementValue
   );
   resultItems = getResultItemsFromRegex(
     resultItems,
-    searchInputElementValue.replace(" ", ".*")
+    searchInputElementValue.replace(" ", ".*"),
+    searchInputElementValue
   );
   resultItems = getResultItemsFromRegex(
     resultItems,
-    searchInputElementValue.split("").join("[^\\s]*\\W*")
+    searchInputElementValue.split("").join("[^\\s]*\\W*"),
+    searchInputElementValue
+  );
+
+  resultItems = getResultItemsFromFilterLogic(
+    resultItems,
+    searchInputElementValue
   );
 
   let i: number = 0;
@@ -435,8 +447,12 @@ const fillResultBar = () => {
     }
 
     let typeIcon: string = ``;
-    if (resultItems[key].type === "action") typeIcon = `<span> ❗ </span>`;
-    if (resultItems[key].type === "hyperlink") typeIcon = `<span> 🔗 </span>`;
+    if (resultItems[key].actionIcon == null) {
+      if (resultItems[key].type === "action") typeIcon = `<span> ❗ </span>`;
+      if (resultItems[key].type === "hyperlink") typeIcon = `<span> 🔗 </span>`;
+    } else {
+      typeIcon = `<span height="15" width="15"> ${resultItems[key].actionIcon} </span>`;
+    }
 
     option.innerHTML =
       "<input type='radio' id='chrome-bar__choice__" +
@@ -488,18 +504,42 @@ const hideHelperSelectedAnchor = () => {
 
 const getResultItemsFromRegex = (
   resultItems: ShortcutEntryType[],
-  searchValReg: RegExp | string
+  searchValReg: RegExp | string,
+  originalInput: string = ""
 ) => {
-  if (resultItems.length >= maxVisibleResults) {
-    return resultItems;
-  }
+  if (resultItems.length >= maxVisibleResults) return resultItems;
 
   for (let alias in shortcuts) {
     if (
       containsObject(alias, resultItems, "alias") === false &&
       alias.match(new RegExp(searchValReg, "gi"))
     ) {
-      resultItems.push(shortcuts[alias]);
+      const shortcut = shortcuts[alias];
+      resultItems.push(
+        typeof shortcut === "function" ? shortcut(originalInput) : shortcut
+      );
+    }
+  }
+
+  return resultItems;
+};
+
+const getResultItemsFromFilterLogic = (
+  resultItems: ShortcutEntryType[],
+  originalInput: string
+) => {
+  if (resultItems.length >= maxVisibleResults) return resultItems;
+
+  for (let alias in shortcuts) {
+    let shortcut = shortcuts[alias];
+    if (typeof shortcut === "function") shortcut = shortcut(originalInput);
+
+    if (
+      containsObject(alias, resultItems, "alias") === false &&
+      shortcut.filterLogic != null &&
+      shortcut.filterLogic(originalInput)
+    ) {
+      resultItems.push(shortcut);
     }
   }
 
@@ -531,6 +571,8 @@ const doSearch = () => {
   if (key == null) return;
 
   let targetItem = shortcuts[key];
+  if (targetItem == null) return;
+  if (typeof targetItem === "function") targetItem = targetItem(selected.value);
 
   setLatestUsedShortcuts(targetItem.element);
 

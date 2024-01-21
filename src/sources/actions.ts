@@ -1,3 +1,4 @@
+import { googleSvgIcon } from "../icons";
 import {
   SearchSelectorElementType,
   ShortcutEntryListType,
@@ -127,32 +128,105 @@ export const determineActionShortcuts: () => ShortcutEntryListType = () => {
       alias: "duplicate-tab",
       title: "Duplicate Tab",
       performAction: () => {
-        chrome.tabs.query(
-          { active: true, currentWindow: true },
-          function (tabs) {
-            if (tabs.length < 1) return;
-            if (tabs[0].id == null) return;
-            chrome.tabs.duplicate(tabs[0].id);
-          }
-        );
+        chrome.runtime.sendMessage({
+          message: "duplicate-tab",
+        });
       },
     },
+    "perform-google-search": (input) => ({
+      type: "action",
+      alias: "perform-google-search",
+      title: "Google: " + input,
+      actionIcon: googleSvgIcon,
+      performAction: () => {
+        window.open(
+          "https://google.com/search?q=" + encodeURIComponent(input),
+          "_blank"
+        );
+      },
+      filterLogic: (input: string) => true,
+    }),
+    "close-other-tabs-in-all-windows": {
+      type: "action",
+      alias: "close-other-tabs-in-all-windows",
+      title: "Close Other Tabs in All Windows",
+      performAction: () => {
+        chrome.runtime.sendMessage({
+          message: "close-other-tabs-in-all-windows",
+        });
+      },
+    },
+    "close-other-tabs-in-window": {
+      type: "action",
+      alias: "close-other-tabs-in-window",
+      title: "Close Other Tabs in Window",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "close-other-tabs-in-window" });
+      },
+    },
+    "pin-tab": {
+      type: "action",
+      alias: "pin-tab",
+      title: "Pin Tab",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "pin-tab" });
+      },
+    },
+    "unpin-tab": {
+      type: "action",
+      alias: "unpin-tab",
+      title: "Unpin Tab",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "unpin-tab" });
+      },
+    },
+    "mute-tab": {
+      type: "action",
+      alias: "mute-tab",
+      title: "Mute Tab",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "mute-tab" });
+      },
+    },
+    "unmute-tab": {
+      type: "action",
+      alias: "unmute-tab",
+      title: "Unmute Tab",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "unmute-tab" });
+      },
+    },
+    "ungroup-tab": {
+      type: "action",
+      alias: "ungroup-tab",
+      title: "Ungroup Tab",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "ungroup-tab" });
+      },
+    },
+    "ungroup-all-tabs-in-group": {
+      type: "action",
+      alias: "ungroup-all-tabs-in-group",
+      title: "Ungroup All Tabs in Group",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "ungroup-all-tabs-in-group" });
+      },
+    },
+    "add-tab-to-new-group": {
+      type: "action",
+      alias: "add-tab-to-new-group",
+      title: "Add Tab to New Group",
+      performAction: () => {
+        chrome.runtime.sendMessage({ message: "add-tab-to-new-group" });
+      },
+    },
+
     // "take-screenshot": {
     //   type: "action",
     //   alias: "take-screenshot",
     //   title: "Take Screenshot",
     //   performAction: () => {
-    //     // take full sized screenshot in chrome extension manifest v3
-    //     // https://stackoverflow.com/a/67566016/2784884
-
-    //     chrome.ac.captureVisibleTab(function (image) {
-    //       const timestamp = new Date().getTime();
-
-    //       const link = document.createElement("a");
-    //       link.download = `screenshot-${timestamp}.png`;
-    //       link.href = image;
-    //       link.click();
-    //     });
+    //     chrome.runtime.sendMessage({ message: "take-screenshot" });
     //   },
     // },
   };

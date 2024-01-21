@@ -12,10 +12,24 @@
       "all_frames": true
     }
   ],
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "tabs", "tabGroups", "tabCapture", "pageCapture"],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false
   },
-  "offline_enabled": true
+  "offline_enabled": true,
+  "icons": {
+    "16": "icons/16x16.png",
+    "48": "icons/48x48.png",
+    "128": "icons/128x128.png",
+    "256": "icons/256x256.png",
+    "512": "icons/512x512.png"
+  },
+  "externally_connectable": {
+    "matches": ["<all_urls>"]
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  }
 }

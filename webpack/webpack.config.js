@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     script: path.resolve(__dirname, "..", "src", "script.ts"),
     options: path.resolve(__dirname, "..", "src", "options.ts"),
+    "service-worker": path.resolve(__dirname, "..", "src", "service-worker.ts"),
   },
   output: {
     path: path.join(__dirname, "../dist"),
