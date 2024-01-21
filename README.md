@@ -12,7 +12,7 @@ Add the Chrome Bar to your browser in 5 easy steps (until it's in the Chrome Web
 
 2. Enable `Developer mode` in the top right
 
-3. Download the latest release from https://github.com/martinshaw/chrome-bar/releases/download/1.4.0/dist.crx
+3. Download the latest release by right clicking this link (https://github.com/martinshaw/chrome-bar/releases/download/1.4.0/dist.crx) and selecting `Save link as...`
 
 4. Drag and drop the downloaded file onto the `chrome://extensions` page
 
