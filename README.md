@@ -6,19 +6,25 @@
 
 ## I want it!
 
-Add the Chrome Bar to your browser in 5 easy steps (until it's in the Chrome Web Store!):
+Unfortunately, Chrome doesn't allow you to install extensions from outside the Chrome Web Store by default. If you are having trouble installing the Chrome Bar, try the following:
 
-1. Navigate to `chrome://extensions`
+1. Install Git and Node.js
 
-2. Enable `Developer mode` in the top right
+2. Clone this repository
 
-3. Download the latest release by right clicking this link (https://github.com/martinshaw/chrome-bar/releases/download/1.4.0/dist.crx) and selecting `Save link as...`
+3. Run `npm install`
 
-4. Drag and drop the downloaded file onto the `chrome://extensions` page
+4. Run `npm run build`
 
-5. Press `cmd + cmd` or `ctrl + ctrl` to open the Chrome Bar.
+5. Navigate to `chrome://extensions`
 
-Enjoy a faster browsing experience!
+6. Enable `Developer mode` in the top right
+
+7. Click `Load unpacked` in the top left
+
+8. Select the `dist` folder in the cloned repository
+
+9. Press `cmd + cmd` or `ctrl + ctrl` to open the Chrome Bar.
 
 ## Why is it not in the Chrome Web Store?
 
